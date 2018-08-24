@@ -1,25 +1,33 @@
 package uk.co.taniakolesnik.adn_bakingapp;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
- * Created by tetianakolesnik on 23/08/2018.
+ * Created by tetianakolesnik on 24/08/2018.
  */
+public class Recipe {
 
-public class Recipe{
-
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("name")
+    @Expose
     private String name;
-    private List<RecipeIngredient> ingredients;
-    private List<RecipeStep> steps;
-
-
-    private Recipe(int id, String name, List<RecipeIngredient> recipeIngredientsList, List<RecipeStep> recipeStepsList) {
-        this.id = id;
-        this.name = name;
-        ingredients = recipeIngredientsList;
-        steps = recipeStepsList;
-    }
+    @SerializedName("ingredients")
+    @Expose
+    private List<Ingredient> ingredients = null;
+    @SerializedName("steps")
+    @Expose
+    private List<Step> steps = null;
+    @SerializedName("servings")
+    @Expose
+    private int servings;
+    @SerializedName("image")
+    @Expose
+    private String image;
 
     public int getId() {
         return id;
@@ -37,30 +45,36 @@ public class Recipe{
         this.name = name;
     }
 
-
-    public List<RecipeIngredient> getRecipeIngredientsList() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setRecipeIngredientsList(List<RecipeIngredient> recipeIngredientsList) {
-        ingredients = recipeIngredientsList;
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
-    public List<RecipeStep> getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<RecipeStep> steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", ingredients=" + ingredients +
-                ", steps=" + steps +
-                '}';
+    public int getServings() {
+        return servings;
     }
+
+    public void setServings(int servings) {
+        this.servings = servings;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 }
