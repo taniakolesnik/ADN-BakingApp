@@ -3,12 +3,13 @@ package uk.co.taniakolesnik.adn_bakingapp;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tetianakolesnik on 24/08/2018.
  */
-public class Recipe {
+public class Recipe implements Serializable{
 
     @SerializedName("id")
     @Expose
