@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/step_card_radius_corner"
+    app:contentPadding="@dimen/step_card_content_padding"
+    app:cardElevation="@dimen/step_card_elevation"
+    app:cardUseCompatPadding="true"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/step_id_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/step_shortDescription_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/step_description_textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:lines="2" />
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/step_short_description_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/step_videoURL_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
 
 

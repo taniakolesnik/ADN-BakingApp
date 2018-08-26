@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Recipe> recipes;
     private RecipesRecyclerViewAdapter adapter;
-    private Ingredient mIngredient;
-    private Step mStep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +54,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 recipes =(ArrayList<Recipe>) response.body();
-                for (Recipe recipe : recipes){
-                    ArrayList<Ingredient> ingredients = (ArrayList<Ingredient>) recipe.getIngredients();
-                    for (Ingredient ingredient : ingredients){
-                        mIngredient = ingredient;
-                    }
-
-                    ArrayList<Step> steps = (ArrayList<Step>) recipe.getSteps();
-                    for (Step step : steps){
-                        mStep = step;
-                    }
-                }
-
                 adapter = new RecipesRecyclerViewAdapter(getApplicationContext(), recipes);
                 recyclerView.setAdapter(adapter);
             }

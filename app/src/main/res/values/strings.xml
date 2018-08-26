@@ -2,5 +2,6 @@
     <string name="app_name">ADN-BakingApp</string>
 
     <string name="recipe_bundle">recipe</string>
+    <string name="step_bundle">step</string>
 
 </resources>

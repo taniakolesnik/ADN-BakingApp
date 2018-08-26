@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Step card -->
+    <dimen name="step_card_radius_corner">5dp</dimen>
+    <dimen name="step_card_content_padding">16dp</dimen>
+    <dimen name="step_card_elevation">2dp</dimen>
+
+</resources>
