@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,12 +25,18 @@ import uk.co.taniakolesnik.adn_bakingapp.Recipe;
 
 public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<Recipe> data;
+    private List<Recipe> data;
     private Context context;
 
-    public RecipesRecyclerViewAdapter(Context context, ArrayList<Recipe> data) {
+    public RecipesRecyclerViewAdapter(Context context, List<Recipe> data) {
         this.context = context;
         this.data = data;
+    }
+
+    public void updateData(List<Recipe> recipes){
+        Log.i("Adapter", "recipes " + recipes.toString());
+        this.data = recipes;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Serializable{
@@ -61,7 +67,6 @@ public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecy
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.nameView.setText(data.get(position).getName());
-        Log.i("Adapter", "recipe is  " + data.get(position).toString());
     }
 
     @Override

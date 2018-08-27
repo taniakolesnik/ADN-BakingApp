@@ -1,6 +1,9 @@
 package uk.co.taniakolesnik.adn_bakingapp;
 
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,25 +14,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import uk.co.taniakolesnik.adn_bakingapp.Utils.BakingGetListClient;
+import uk.co.taniakolesnik.adn_bakingapp.Utils.RecipeAsyncTaskLoader;
 import uk.co.taniakolesnik.adn_bakingapp.Utils.RecipesRecyclerViewAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  LoaderManager.LoaderCallbacks<List<Recipe>> {
 
-    private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net";
-    private static final String URL_YEAR_PATH = "2017";
-    private static final String URL_MONTH_PATH = "May";
-    private static final String URL_LIST_PATH = "59121517_baking";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.recipes_recyclerView) RecyclerView recyclerView;
-
-    private ArrayList<Recipe> recipes;
-    private RecipesRecyclerViewAdapter adapter;
+    private RecipesRecyclerViewAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private static final int LOADER_ID = 1;
+    private static final String LIST_STATE_KEY = "list_state";
+    private Parcelable mListState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,32 +34,50 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        getLoaderManager().initLoader(LOADER_ID, null,this);
+
+        layoutManager = new LinearLayoutManager(getApplicationContext());
+        mAdapter = new RecipesRecyclerViewAdapter(this, new ArrayList<Recipe>());
+        if (savedInstanceState!=null){
+            layoutManager.onRestoreInstanceState(mListState);
+            Log.i(TAG, "onCreate savedInstanceState not null");
+        }
         recyclerView.setLayoutManager(layoutManager);
-        getRecipesList();
+        recyclerView.setAdapter(mAdapter);
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.i(TAG, "onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+        mListState = recyclerView.getLayoutManager().onSaveInstanceState();
 
     }
 
-    private void getRecipesList() {
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
-        BakingGetListClient client = retrofit.create(BakingGetListClient.class);
-        Call<List<Recipe>> call = client.getRecipesList(URL_YEAR_PATH, URL_MONTH_PATH, URL_LIST_PATH);
-        call.enqueue(new Callback<List<Recipe>>() {
-            @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                recipes =(ArrayList<Recipe>) response.body();
-                adapter = new RecipesRecyclerViewAdapter(getApplicationContext(), recipes);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.i("MainActivity", "onFailure " + t.toString());
-            }
-        });
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Log.i(TAG, "onRestoreInstanceState");
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState!=null){
+            Log.i(TAG, "onRestoreInstanceState savedInstanceState is not null");
+            mListState = savedInstanceState.getParcelable(LIST_STATE_KEY);
+        }
     }
 
+    @Override
+    public Loader<List<Recipe>> onCreateLoader(int id, Bundle args) {
+        Log.i(TAG, "onCreateLoader");
+        return new RecipeAsyncTaskLoader(this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Recipe>> loader, List<Recipe> data) {
+        Log.i(TAG, "onLoadFinished");
+        mAdapter.updateData(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Recipe>> loader) {
+    }
 }
