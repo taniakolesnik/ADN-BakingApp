@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import uk.co.taniakolesnik.adn_bakingapp.Utils.StepsRecyclerViewAdapter;
 
 public class DetailsFragment extends Fragment {
 
-    private static final String TAG = DetailsActivity.class.getSimpleName();
+    private static final String TAG = DetailsFragment.class.getSimpleName();
     private static final String RECIPE_KEY = "recipe_key";
     private Recipe mRecipe;
     private Parcelable mListState;
@@ -45,10 +46,12 @@ public class DetailsFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         if (savedInstanceState != null) {
+            Log.i(TAG, "onCreateView savedInstanceState is not null");
             if (savedInstanceState.containsKey(RECIPE_KEY)) {
                 mRecipe = (Recipe) savedInstanceState.getSerializable(RECIPE_KEY);
             }
         } else {
+            Log.i(TAG, "onCreateView savedInstanceState is null. get Recipe from intent");
             Intent intent = getActivity().getIntent();
             mRecipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_bundle));
         }
