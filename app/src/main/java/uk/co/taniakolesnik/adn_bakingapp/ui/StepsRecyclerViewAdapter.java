@@ -1,7 +1,6 @@
-package uk.co.taniakolesnik.adn_bakingapp.Utils;
+package uk.co.taniakolesnik.adn_bakingapp.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +13,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.taniakolesnik.adn_bakingapp.InstructionsActivity;
+import uk.co.taniakolesnik.adn_bakingapp.DetailsFragment;
+import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
 import uk.co.taniakolesnik.adn_bakingapp.R;
-import uk.co.taniakolesnik.adn_bakingapp.Step;
 
 /**
  * Created by tetianakolesnik on 26/08/2018.
@@ -46,10 +45,7 @@ public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecycler
 
         @Override
         public void onClick(View v) {
-            Step step = data.get(getAdapterPosition());
-            Intent intent = new Intent(context, InstructionsActivity.class);
-            intent.putExtra(context.getResources().getString(R.string.step_bundle), step);
-            context.startActivity(intent);
+                DetailsFragment.mStepClickListener.onStepSelected(getAdapterPosition(), data);
         }
     }
 

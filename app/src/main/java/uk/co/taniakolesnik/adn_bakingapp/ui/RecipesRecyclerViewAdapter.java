@@ -1,4 +1,4 @@
-package uk.co.taniakolesnik.adn_bakingapp.Utils;
+package uk.co.taniakolesnik.adn_bakingapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.taniakolesnik.adn_bakingapp.DetailsActivity;
 import uk.co.taniakolesnik.adn_bakingapp.R;
-import uk.co.taniakolesnik.adn_bakingapp.Recipe;
+import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
 
 /**
  * Created by tetianakolesnik on 24/08/2018.

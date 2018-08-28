@@ -1,5 +1,6 @@
 package uk.co.taniakolesnik.adn_bakingapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -8,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,10 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.taniakolesnik.adn_bakingapp.Utils.StepsRecyclerViewAdapter;
+import uk.co.taniakolesnik.adn_bakingapp.Objects.Ingredient;
+import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
+import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
+import uk.co.taniakolesnik.adn_bakingapp.ui.StepsRecyclerViewAdapter;
 
 /**
  * Created by tetianakolesnik on 28/08/2018.
@@ -35,8 +38,24 @@ public class DetailsFragment extends Fragment {
     TextView ingredients_textView;
     @BindView(R.id.steps_recyclerView)
     RecyclerView stepsRecyclerView;
+    public static OnStepClickListener mStepClickListener;
 
     public DetailsFragment() {
+    }
+
+    public interface OnStepClickListener{
+        void onStepSelected(int position, ArrayList<Step> data);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mStepClickListener = (OnStepClickListener) context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(context.toString() + "must implement OnStepClickListener");
+        }
+
     }
 
     @Nullable
@@ -46,12 +65,10 @@ public class DetailsFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         if (savedInstanceState != null) {
-            Log.i(TAG, "onCreateView savedInstanceState is not null");
             if (savedInstanceState.containsKey(RECIPE_KEY)) {
                 mRecipe = (Recipe) savedInstanceState.getSerializable(RECIPE_KEY);
             }
         } else {
-            Log.i(TAG, "onCreateView savedInstanceState is null. get Recipe from intent");
             Intent intent = getActivity().getIntent();
             mRecipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_bundle));
         }

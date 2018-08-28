@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
 
 /**
  * Created by tetianakolesnik on 28/08/2018.
@@ -22,6 +23,7 @@ public class InstructionsFragment extends Fragment {
     private Step mStep;
     @BindView(R.id.step_description) TextView description;
 
+
     public InstructionsFragment() {
     }
 
@@ -29,17 +31,27 @@ public class InstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
         ButterKnife.bind(this, rootView);
+        Intent intent = getActivity().getIntent();
+        Bundle bundle = this.getArguments();
 
+        //restore instance
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(STEP_KEY)) {
                 mStep = (Step) savedInstanceState.getSerializable(STEP_KEY);
             }
-        } else {
-            Intent intent = getActivity().getIntent();
-            mStep = (Step) intent.getSerializableExtra(getString(R.string.step_bundle));
+
+            //if fragment was open with intent (phone mode)
+        } else if (intent.hasExtra(getString(R.string.step_bundle))) {
+             mStep = (Step) intent.getSerializableExtra(getString(R.string.step_bundle));
+             description.setText(mStep.getDescription());
+            //if fragment was open with details activity (tablet mode)
+        } else if (bundle != null) {
+            mStep = (Step) bundle.getSerializable(getString(R.string.step_bundle));
         }
 
-        description.setText(mStep.getDescription());
+        if (mStep!=null){
+            description.setText(mStep.getDescription());
+        }
         return rootView;
     }
 

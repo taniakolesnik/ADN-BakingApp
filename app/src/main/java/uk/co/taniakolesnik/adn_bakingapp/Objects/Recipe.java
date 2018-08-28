@@ -1,4 +1,4 @@
-package uk.co.taniakolesnik.adn_bakingapp;
+package uk.co.taniakolesnik.adn_bakingapp.Objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

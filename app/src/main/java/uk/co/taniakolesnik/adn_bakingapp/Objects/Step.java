@@ -1,4 +1,4 @@
-package uk.co.taniakolesnik.adn_bakingapp;
+package uk.co.taniakolesnik.adn_bakingapp.Objects;
 
 /**
  * Created by tetianakolesnik on 23/08/2018.
