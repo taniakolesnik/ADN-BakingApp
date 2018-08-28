@@ -49,23 +49,4 @@ public class RecipeAsyncTaskLoader extends android.support.v4.content.AsyncTaskL
             return recipes;
         }
 
-
-    @Override
-    protected void onStartLoading() {
-            if (recipes != null) {
-                deliverResult(recipes);
-                Log.i(TAG, "onStartLoading deliverResult");
-            }
-            if (recipes == null || takeContentChanged()) {
-                Log.i(TAG, "onStartLoading forceLoad");
-                forceLoad();
-            }
-    }
-
-    @Override
-    protected void onStopLoading() {
-        cancelLoad();
-    }
-
-
 }

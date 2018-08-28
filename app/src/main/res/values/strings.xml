@@ -4,4 +4,6 @@
     <string name="recipe_bundle">recipe</string>
     <string name="step_bundle">step</string>
 
+    <string name="not_recipes_text_message">No recipe list returned. Please check your link or internet connectiion</string>
+
 </resources>

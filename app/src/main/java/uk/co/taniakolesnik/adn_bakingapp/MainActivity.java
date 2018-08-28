@@ -1,7 +1,7 @@
 package uk.co.taniakolesnik.adn_bakingapp;
 
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -11,11 +11,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecipesListFragment fragment = new RecipesListFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.recipe_list_container, fragment)
-                .commit();
+        if (savedInstanceState == null) {
+            RecipesListFragment fragment = new RecipesListFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.recipe_list_container, fragment)
+                    .commit();
+        }
     }
 }
