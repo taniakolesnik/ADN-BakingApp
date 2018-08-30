@@ -37,7 +37,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsFragmen
         Step step = steps.get(position);
         if (mTabletMode){
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(getString(R.string.step_bundle), step);
+                bundle.putSerializable(getString(R.string.steps_bundle), steps);
+                bundle.putInt(getString(R.string.step_position_bundle), position);
                 InstructionsFragment fragment = new InstructionsFragment();
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -47,7 +48,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsFragmen
                         .commit();
         } else {
             Intent intent = new Intent(this, InstructionsActivity.class);
-            intent.putExtra(getString(R.string.step_bundle), step);
+            intent.putExtra(getString(R.string.steps_bundle), steps);
+            intent.putExtra(getString(R.string.step_position_bundle), position);
             startActivity(intent);
         }
     }

@@ -31,6 +31,16 @@ public class RecipeAsyncTaskLoader extends AsyncTaskLoader<List<Recipe>> {
     }
 
     @Override
+    protected void onStartLoading() {
+        forceLoad();
+    }
+
+    @Override
+    protected void onReset() {
+        cancelLoad();
+    }
+
+    @Override
     public List<Recipe> loadInBackground() {
 
             recipes = new ArrayList<>();

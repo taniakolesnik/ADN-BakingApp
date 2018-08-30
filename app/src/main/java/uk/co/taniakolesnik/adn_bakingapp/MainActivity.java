@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        getLoaderManager().initLoader(LOADER_ID, null, this).forceLoad();
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+
         layoutManager = new GridLayoutManager(this, getColumnNumber());
         mAdapter = new RecipesRecyclerViewAdapter(this, new ArrayList<Recipe>());
         if (savedInstanceState!=null){
@@ -65,11 +66,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<List<Recipe>> loader, List<Recipe> data) {
         progressBar.setVisibility(View.GONE);
         if (data==null){
-            Log.i("MainActivity", "onLoadFinished data==null");
             emptyTextView.setVisibility(View.VISIBLE);
             emptyTextView.setText(getString(R.string.not_recipes_text_message));
         } else {
-            Log.i("MainActivity", "onLoadFinished updateData " + data.toString());
             mAdapter.updateData(data);
         }
     }
@@ -88,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             columnNumber = GRID_VIEW_COLUMN_PHONE;
         }
-        Log.i("MainActivity", "columnNumber " + columnNumber);
         return columnNumber;
     }
 
@@ -96,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mListState = recyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(LIST_STATE_KEY, mListState);
     }
 
     @Override

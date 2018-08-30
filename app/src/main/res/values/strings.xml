@@ -2,7 +2,10 @@
     <string name="app_name">ADN-BakingApp</string>
 
     <string name="recipe_bundle">recipe</string>
-    <string name="step_bundle">step</string>
+    <string name="steps_bundle">steps</string>
+    <string name="step_position_bundle">step_position</string>
+    <string name="next_button">Next</string>
+    <string name="previous_button">Previous</string>
 
     <string name="not_recipes_text_message">No recipe list returned. Please check your link or internet connectiion</string>
 
