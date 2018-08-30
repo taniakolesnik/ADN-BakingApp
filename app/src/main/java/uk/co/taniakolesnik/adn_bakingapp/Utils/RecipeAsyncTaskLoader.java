@@ -1,5 +1,6 @@
 package uk.co.taniakolesnik.adn_bakingapp.Utils;
 
+import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.util.Log;
 
@@ -16,7 +17,7 @@ import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
  * Created by tetianakolesnik on 27/08/2018.
  */
 
-public class RecipeAsyncTaskLoader extends android.support.v4.content.AsyncTaskLoader<List<Recipe>> {
+public class RecipeAsyncTaskLoader extends AsyncTaskLoader<List<Recipe>> {
 
     private static final String TAG = RecipeAsyncTaskLoader.class.getSimpleName();
     private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net";

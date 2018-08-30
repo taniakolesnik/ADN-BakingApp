@@ -52,6 +52,9 @@ public class Step implements Serializable {
     }
 
     public String getVideoURL() {
+        if (videoURL==""){
+            return getThumbnailURL();
+        }
         return videoURL;
     }
 
