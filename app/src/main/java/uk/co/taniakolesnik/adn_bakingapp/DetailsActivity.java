@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +19,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsFragmen
     private boolean mTabletMode;
 
     @Nullable
-    @BindView(R.id.tablet_liner_layout) LinearLayout mLinearLayout;
+    @BindView(R.id.tablet_layout) RelativeLayout mTabletLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +27,13 @@ public class DetailsActivity extends AppCompatActivity implements DetailsFragmen
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
 
-        if (mLinearLayout != null) {
+        if (mTabletLayout != null) {
             mTabletMode = true;
         }
     }
 
     @Override
     public void onStepSelected(int position, ArrayList<Step> steps) {
-        Step step = steps.get(position);
         if (mTabletMode){
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(getString(R.string.steps_bundle), steps);

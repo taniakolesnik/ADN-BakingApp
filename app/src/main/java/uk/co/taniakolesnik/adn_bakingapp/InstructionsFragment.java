@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +35,6 @@ import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
  */
 
 public class InstructionsFragment extends Fragment{
-
-    private static final String TAG = InstructionsFragment.class.getSimpleName();
 
     private static final String STEP_KEY = "step_key";
     private ArrayList<Step> mSteps;
@@ -102,15 +99,15 @@ public class InstructionsFragment extends Fragment{
     }
 
     private void updateInstructions(){
+        mPlayerView.setVisibility(View.VISIBLE);
+        releasePlayer();
         mStep = mSteps.get(stepPosition);
         setInstructionsView();
     }
 
-
     private void setInstructionsView() {
         description.setText(mStep.getDescription());
         String videoUrl = mStep.getVideoURL();
-        Log.i(TAG, "videoUrl " + videoUrl);
 
         if (videoUrl!=""){
             initializePlayer(videoUrl);
@@ -140,7 +137,6 @@ public class InstructionsFragment extends Fragment{
     }
 
     private void initializePlayer(String videoUrl) {
-        Log.i(TAG, "initializePlayer started");
         Uri videoUri = Uri.parse(videoUrl);
 
         DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();

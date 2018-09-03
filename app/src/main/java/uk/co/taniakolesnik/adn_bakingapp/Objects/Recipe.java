@@ -30,6 +30,8 @@ public class Recipe implements Serializable{
     @Expose
     private String image;
 
+    private boolean isFavourite;
+
     public int getId() {
         return id;
     }
@@ -77,5 +79,13 @@ public class Recipe implements Serializable{
     public void setImage(String image) {
         this.image = image;
     }
+
+    public boolean getIsFavourite() {
+        return isFavourite;
+    }
+    public void setIsFavourite(boolean isFavourite) {
+        this.isFavourite = isFavourite;
+    }
+
 
 }

@@ -2,13 +2,17 @@ package uk.co.taniakolesnik.adn_bakingapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +33,13 @@ import uk.co.taniakolesnik.adn_bakingapp.ui.StepsRecyclerViewAdapter;
 
 public class DetailsFragment extends Fragment {
 
-    private static final String TAG = DetailsFragment.class.getSimpleName();
     private static final String RECIPE_KEY = "recipe_key";
     private Recipe mRecipe;
     private Parcelable mListState;
     private static final String LIST_STATE_KEY = "list_state";
-    @BindView(R.id.ingredients_textView)
-    TextView ingredients_textView;
-    @BindView(R.id.steps_recyclerView)
-    RecyclerView stepsRecyclerView;
+    @BindView(R.id.ingredients_textView) TextView ingredients_textView;
+    @BindView(R.id.steps_recyclerView) RecyclerView stepsRecyclerView;
+    @BindView(R.id.add_fab_button) FloatingActionButton mFloatingActionButton;
     public static OnStepClickListener mStepClickListener;
 
     public DetailsFragment() {
@@ -60,10 +62,10 @@ public class DetailsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
         ButterKnife.bind(this, rootView);
-
+        final Context context = getContext();
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(RECIPE_KEY)) {
                 mRecipe = (Recipe) savedInstanceState.getSerializable(RECIPE_KEY);
@@ -78,6 +80,19 @@ public class DetailsFragment extends Fragment {
 
         // create step list
         extractAndSetStepsList(mRecipe, savedInstanceState);
+
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(context.getString(R.string.widget_recipe_shared_pref), mRecipe.getName());
+                editor.apply();
+                BakingWidgetIntentService.startActionUpdateWidget(context);
+                Log.i("mFloatingActionButton", "WIDGET_UEEE onHandleIntent SKIPPED");
+
+            }
+        });
 
         return rootView;
     }
