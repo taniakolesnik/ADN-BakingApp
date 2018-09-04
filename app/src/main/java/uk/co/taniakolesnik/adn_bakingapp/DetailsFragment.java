@@ -16,7 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public class DetailsFragment extends Fragment {
     private Recipe mRecipe;
     private Parcelable mListState;
     private static final String LIST_STATE_KEY = "list_state";
-    @BindView(R.id.ingredients_textView) TextView ingredients_textView;
+    @BindView(R.id.ingredients_listView) ListView ingredients_listView;
     @BindView(R.id.steps_recyclerView) RecyclerView stepsRecyclerView;
     @BindView(R.id.add_fab_button) FloatingActionButton mFloatingActionButton;
     public static OnStepClickListener mStepClickListener;
@@ -115,15 +116,18 @@ public class DetailsFragment extends Fragment {
 
     private void extractAndSetIngredientsList(Recipe recipe) {
         ArrayList<Ingredient> ingredients = (ArrayList<Ingredient>) recipe.getIngredients();
-        StringBuilder stringBuilder = new StringBuilder();
+        ArrayList<String> strings = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
+            StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(" - ");
             stringBuilder.append(ingredient.getIngredient());
             stringBuilder.append(" - ");
             stringBuilder.append(ingredient.getQuantity());
-            stringBuilder.append("(" + ingredient.getMeasure() + ");\n");
+            stringBuilder.append("(" + ingredient.getMeasure() + ");");
+            strings.add(stringBuilder.toString());
         }
-        ingredients_textView.setText(stringBuilder.toString());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.ingredient_list_item, strings);
+        ingredients_listView.setAdapter(adapter);
     }
 
     private void extractAndSetStepsList(Recipe recipe, Bundle savedInstanceState) {

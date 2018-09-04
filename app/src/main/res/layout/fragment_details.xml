@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <ListView
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ingredients_textView"/>
+        android:id="@+id/ingredients_listView" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@id/ingredients_textView"
+        android:layout_below="@id/ingredients_listView"
         android:id="@+id/steps_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
