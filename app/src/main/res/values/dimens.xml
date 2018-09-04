@@ -8,6 +8,9 @@
 
     <dimen name="float_button_margin">16dp</dimen>
     <dimen name="widget_inside_margin">8dp</dimen>
+    <dimen name="widget_title_textSize">22sp</dimen>
+    <dimen name="widget_list_item_textSize">12sp</dimen>
+
 
     <!--
 Refer to App Widget Documentation for margin information

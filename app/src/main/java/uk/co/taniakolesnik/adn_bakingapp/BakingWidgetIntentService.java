@@ -15,8 +15,6 @@ import uk.co.taniakolesnik.adn_bakingapp.Utils.BakingWidgetProvider;
 
 public class BakingWidgetIntentService extends IntentService {
 
-    private static final String TAG = BakingWidgetIntentService.class.getSimpleName();
-
     public static final String ACTION_UPDATE_WIDGET_RECIPE = "uk.co.taniakolesnik.adn_bakingapp.Utils.action.update_widget";
 
     public BakingWidgetIntentService() {
@@ -37,6 +35,7 @@ public class BakingWidgetIntentService extends IntentService {
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
                 int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingWidgetProvider.class));
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_title_textView);
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_listView);
                 BakingWidgetProvider.updateWidgets(this, appWidgetManager ,appWidgetIds);
             }
         }

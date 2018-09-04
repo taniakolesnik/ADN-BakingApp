@@ -2,10 +2,8 @@ package uk.co.taniakolesnik.adn_bakingapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -77,7 +75,7 @@ public class DetailsFragment extends Fragment {
         }
 
         // create ingredients list
-        extractAndSetIngredientsList(mRecipe);
+        final ArrayList<String> strings = extractAndSetIngredientsList(mRecipe);
 
         // create step list
         extractAndSetStepsList(mRecipe, savedInstanceState);
@@ -85,13 +83,11 @@ public class DetailsFragment extends Fragment {
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(context.getString(R.string.widget_recipe_shared_pref), mRecipe.getName());
-                editor.apply();
+                TinyDB tinyDB = new TinyDB(context);
+                tinyDB.putString(context.getString(R.string.widget_recipe_name_for_widget_key), mRecipe.getName());
+                tinyDB.putListString(context.getString(R.string.widget_ingredients_list_for_widget_key), strings);
+                Log.i("mFloatingActionButton", "WIDGET_UEEE strings" + strings);
                 BakingWidgetIntentService.startActionUpdateWidget(context);
-                Log.i("mFloatingActionButton", "WIDGET_UEEE onHandleIntent SKIPPED");
-
             }
         });
 
@@ -114,7 +110,7 @@ public class DetailsFragment extends Fragment {
         }
     }
 
-    private void extractAndSetIngredientsList(Recipe recipe) {
+    private ArrayList<String> extractAndSetIngredientsList(Recipe recipe) {
         ArrayList<Ingredient> ingredients = (ArrayList<Ingredient>) recipe.getIngredients();
         ArrayList<String> strings = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
@@ -128,6 +124,7 @@ public class DetailsFragment extends Fragment {
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.ingredient_list_item, strings);
         ingredients_listView.setAdapter(adapter);
+        return strings;
     }
 
     private void extractAndSetStepsList(Recipe recipe, Bundle savedInstanceState) {

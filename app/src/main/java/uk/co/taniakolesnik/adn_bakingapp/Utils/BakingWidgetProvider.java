@@ -5,13 +5,12 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
 import uk.co.taniakolesnik.adn_bakingapp.MainActivity;
 import uk.co.taniakolesnik.adn_bakingapp.R;
+import uk.co.taniakolesnik.adn_bakingapp.TinyDB;
 
 /**
  * Implementation of App Widget functionality.
@@ -23,30 +22,33 @@ public class BakingWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
+
         Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_widget_provider);
+
+        PendingIntent startAppIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.widget_title_textView, startAppIntent);
+
         views.setImageViewResource(R.id.widget_imageView, R.drawable.ic_baking);
-        views.setTextViewText(R.id.widget_title_textView, getRecipeNameFromSharedPreferences(context));
-        views.setOnClickPendingIntent(R.layout.baking_widget_provider, pendingIntent);
+        views.setTextViewText(R.id.widget_title_textView, getRecipeNameFromTinyDB(context));
+
+        Intent listViewIntent = new Intent(context, WidgetRemoteViewsService.class);
+        views.setRemoteAdapter(R.id.widget_listView, listViewIntent);
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-    private static String getRecipeNameFromSharedPreferences(Context context) {
-        Log.i(TAG, "WIDGET_UEEE getRecipeNameFromSharedPreferences started");
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String recipeName = sharedPreferences.getString(context.getString(R.string.widget_recipe_shared_pref),
-                context.getString(R.string.widget_recipe_name_default));
-        Log.i(TAG, "WIDGET_UEEE getRecipeNameFromSharedPreferences recipeName" + recipeName);
+    private static String getRecipeNameFromTinyDB(Context context) {
+        Log.i(TAG, "getRecipeNameFromTinyDB");
+        TinyDB tinydb = new TinyDB(context);
+        String recipeName = tinydb.getString(context.getString(R.string.widget_recipe_name_for_widget_key));
+        Log.i(TAG, "getRecipeNameFromTinyDB recipeName " + recipeName);
         return recipeName;
 
     }
 
     public static void updateWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        Log.i(TAG, "WIDGET_UEEE updateWidgets started");
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
-            Log.i(TAG, "WIDGET_UEEE updateWidgets started " + appWidgetId);
         }
     }
 

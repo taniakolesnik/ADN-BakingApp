@@ -8,9 +8,9 @@
         android:layout_alignParentTop="true"
         android:id="@+id/widget_title_textView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textSize="22sp"
-        android:textColor="@android:color/white"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/widget_title_textSize"
+        android:textColor="@color/colorWidgetText"
         android:fontFamily="sans-serif-light"
         android:textStyle="bold"
         android:layout_marginEnd="@dimen/widget_inside_margin"/>
@@ -22,5 +22,13 @@
         android:layout_height="30dp"
         android:layout_marginTop="@dimen/widget_inside_margin"
         android:layout_marginStart="@dimen/widget_inside_margin"/>
+
+        <ListView
+            android:id="@+id/widget_listView"
+            android:layout_below="@id/widget_title_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/widget_inside_margin"
+            android:layout_marginStart="@dimen/widget_inside_margin"/>
 
 </RelativeLayout>
