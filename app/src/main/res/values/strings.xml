@@ -8,11 +8,14 @@
     <string name="previous_button">Previous</string>
 
     <string name="not_recipes_text_message">No recipe list returned. Please check your link or internet connectiion</string>
+    <string name="not_recent_recipes_text_message">No recent recipe found. Please open app and start looking for tasty stuff</string>
     <string name="appwidget_text">@string/app_name</string>
     <string name="add_widget">Add widget</string>
 
     <string name="widget_recipe_name_for_widget_key">widget_recipe</string>
     <string name="widget_recipe_name_default">@string/app_name</string>
     <string name="widget_ingredients_list_for_widget_key">widget_ingredients</string>
+
+    <string name="settings_menu_name">show on widget</string>
 
 </resources>

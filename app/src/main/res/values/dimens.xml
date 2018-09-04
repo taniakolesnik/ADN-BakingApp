@@ -8,9 +8,21 @@
 
     <dimen name="float_button_margin">16dp</dimen>
     <dimen name="widget_inside_margin">8dp</dimen>
+
+
     <dimen name="widget_title_textSize">22sp</dimen>
     <dimen name="widget_list_item_textSize">12sp</dimen>
 
+    <dimen name="recipe_title_textSize">34sp</dimen>
+    <dimen name="steps_textSize">20sp</dimen>
+    <dimen name="ingredients_textSize">16sp</dimen>
+
+    <dimen name="margin_small">16dp</dimen>
+    <dimen name="margin_medium">48dp</dimen>
+    <dimen name="margin_large">64dp</dimen>
+
+    <dimen name="ingredients_list_height">320dp</dimen>
+    <dimen name="step_width_for_tablet">200dp</dimen>
 
     <!--
 Refer to App Widget Documentation for margin information

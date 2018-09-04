@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.empty_textView) TextView emptyTextView;
     private static final int LOADER_ID = 1;
     private static final int GRID_VIEW_COLUMN_PHONE = 1;
-    private static final int GRID_VIEW_COLUMN_TABLET = 4;
+    private static final int GRID_VIEW_COLUMN_TABLET = 3;
     private static final int MAX_WIDTH_PHONE = 600;
     private static final String LIST_STATE_KEY = "list_state";
     private RecipesRecyclerViewAdapter mAdapter;

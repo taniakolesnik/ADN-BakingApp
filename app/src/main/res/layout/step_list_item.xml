@@ -17,12 +17,9 @@
     <TextView
         android:id="@+id/step_short_description_textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/step_videoURL_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/steps_textSize"
+        android:textColor="@color/colorText"/>
 
     </LinearLayout>
 

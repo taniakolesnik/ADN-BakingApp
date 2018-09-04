@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import uk.co.taniakolesnik.adn_bakingapp.MainActivity;
@@ -17,8 +16,6 @@ import uk.co.taniakolesnik.adn_bakingapp.TinyDB;
  */
 public class BakingWidgetProvider extends AppWidgetProvider {
 
-    private static final String TAG = BakingWidgetProvider.class.getSimpleName();
-
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
@@ -29,8 +26,13 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         PendingIntent startAppIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget_title_textView, startAppIntent);
 
+        CharSequence titleText = getRecipeNameFromTinyDB(context);
+        if (titleText == "" || titleText == null){
+            titleText = context.getString(R.string.not_recent_recipes_text_message);
+        }
+
         views.setImageViewResource(R.id.widget_imageView, R.drawable.ic_baking);
-        views.setTextViewText(R.id.widget_title_textView, getRecipeNameFromTinyDB(context));
+        views.setTextViewText(R.id.widget_title_textView, titleText);
 
         Intent listViewIntent = new Intent(context, WidgetRemoteViewsService.class);
         views.setRemoteAdapter(R.id.widget_listView, listViewIntent);
@@ -38,23 +40,14 @@ public class BakingWidgetProvider extends AppWidgetProvider {
     }
 
     private static String getRecipeNameFromTinyDB(Context context) {
-        Log.i(TAG, "getRecipeNameFromTinyDB");
         TinyDB tinydb = new TinyDB(context);
         String recipeName = tinydb.getString(context.getString(R.string.widget_recipe_name_for_widget_key));
-        Log.i(TAG, "getRecipeNameFromTinyDB recipeName " + recipeName);
         return recipeName;
 
     }
 
-    public static void updateWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
-    }
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
@@ -63,7 +56,6 @@ public class BakingWidgetProvider extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
-        //TODO remove widget preference
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.taniakolesnik.adn_bakingapp.DetailsActivity;
-import uk.co.taniakolesnik.adn_bakingapp.R;
 import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
+import uk.co.taniakolesnik.adn_bakingapp.R;
 
 /**
  * Created by tetianakolesnik on 24/08/2018.
@@ -34,7 +33,6 @@ public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecy
     }
 
     public void updateData(List<Recipe> recipes){
-        Log.i("Adapter", "recipes " + recipes.toString());
         this.data = recipes;
         notifyDataSetChanged();
     }
