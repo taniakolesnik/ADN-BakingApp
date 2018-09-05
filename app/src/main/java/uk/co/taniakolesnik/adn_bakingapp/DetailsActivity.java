@@ -12,11 +12,13 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
 import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
 
 public class DetailsActivity extends AppCompatActivity implements DetailsFragment.OnStepClickListener {
 
     private boolean mTabletMode;
+    private String recipeName;
 
     @Nullable
     @BindView(R.id.tablet_layout) RelativeLayout mTabletLayout;
@@ -30,6 +32,11 @@ public class DetailsActivity extends AppCompatActivity implements DetailsFragmen
         if (mTabletLayout != null) {
             mTabletMode = true;
         }
+
+        Intent intent = getIntent();
+        Recipe recipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_bundle));
+        recipeName = recipe.getName();
+        setTitle(recipeName);
     }
 
     @Override
@@ -48,6 +55,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsFragmen
         } else {
             Intent intent = new Intent(this, InstructionsActivity.class);
             intent.putExtra(getString(R.string.steps_bundle), steps);
+            intent.putExtra(getString(R.string.recipe_name_bundle), recipeName);
             intent.putExtra(getString(R.string.step_position_bundle), position);
             startActivity(intent);
         }

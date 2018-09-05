@@ -13,15 +13,14 @@
         android:textColor="@color/colorWidgetText"
         android:fontFamily="sans-serif-light"
         android:textStyle="bold"
-        android:layout_marginEnd="@dimen/widget_inside_margin"/>
+        android:layout_margin="@dimen/widget_inside_margin"/>
 
     <ImageView
         android:id="@+id/widget_imageView"
         android:layout_alignParentEnd="true"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="@dimen/widget_inside_margin"
-        android:layout_marginStart="@dimen/widget_inside_margin"/>
+        android:layout_width="@dimen/widget_icon_width"
+        android:layout_height="@dimen/widget_icon_height"
+        android:layout_margin="@dimen/widget_inside_margin" />
 
         <ListView
             android:id="@+id/widget_listView"

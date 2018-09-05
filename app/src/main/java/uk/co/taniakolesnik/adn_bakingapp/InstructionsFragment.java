@@ -36,7 +36,10 @@ import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
 
 public class InstructionsFragment extends Fragment{
 
+    private static final String TAG = InstructionsFragment.class.getSimpleName();
+
     private static final String STEP_KEY = "step_key";
+    private static final String STEPS_KEY = "steps_key";
     private ArrayList<Step> mSteps;
     private Step mStep;
     private int stepPosition;
@@ -60,6 +63,7 @@ public class InstructionsFragment extends Fragment{
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(STEP_KEY)) {
                 mStep = (Step) savedInstanceState.getSerializable(STEP_KEY);
+                mSteps= (ArrayList<Step>) savedInstanceState.getSerializable(STEPS_KEY);
             }
 
             //if fragment was open with intent (phone mode)
@@ -73,11 +77,13 @@ public class InstructionsFragment extends Fragment{
         }
         if (mSteps!=null){
             mStep = mSteps.get(stepPosition);
-            setInstructionsView();
+
         }
+        setInstructionsView();
         setOnClickListener();
         return rootView;
     }
+
 
     private void setOnClickListener() {
 
@@ -120,8 +126,8 @@ public class InstructionsFragment extends Fragment{
     }
 
     private void setButtonsVisibilityAndNames() {
-        button_next.setText(String.valueOf(stepPosition + 1));
-        button_previous.setText(String.valueOf(stepPosition - 1));
+        button_next.setText(getString(R.string.next_button));
+        button_previous.setText(getString(R.string.previous_button));
 
         if (stepPosition >= mSteps.size() - 1) {
             button_next.setVisibility(View.GONE);
@@ -158,6 +164,7 @@ public class InstructionsFragment extends Fragment{
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(STEP_KEY, mStep);
+        outState.putSerializable(STEPS_KEY, mSteps);
     }
 
     @Override

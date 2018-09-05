@@ -2,6 +2,7 @@
     <string name="app_name">Baking App</string>
 
     <string name="recipe_bundle">recipe</string>
+    <string name="recipe_name_bundle">recipe_name</string>
     <string name="steps_bundle">steps</string>
     <string name="step_position_bundle">step_position</string>
     <string name="next_button">Next</string>

@@ -9,7 +9,6 @@ import android.widget.RemoteViews;
 
 import uk.co.taniakolesnik.adn_bakingapp.MainActivity;
 import uk.co.taniakolesnik.adn_bakingapp.R;
-import uk.co.taniakolesnik.adn_bakingapp.TinyDB;
 
 /**
  * Implementation of App Widget functionality.
@@ -19,6 +18,7 @@ public class BakingWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
+
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
 
         Intent intent = new Intent(context, MainActivity.class);
@@ -27,7 +27,7 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.widget_title_textView, startAppIntent);
 
         CharSequence titleText = getRecipeNameFromTinyDB(context);
-        if (titleText == "" || titleText == null){
+        if (titleText == "" || titleText == null) {
             titleText = context.getString(R.string.not_recent_recipes_text_message);
         }
 
@@ -36,6 +36,7 @@ public class BakingWidgetProvider extends AppWidgetProvider {
 
         Intent listViewIntent = new Intent(context, WidgetRemoteViewsService.class);
         views.setRemoteAdapter(R.id.widget_listView, listViewIntent);
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 

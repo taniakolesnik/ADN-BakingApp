@@ -8,7 +8,6 @@ import android.widget.RemoteViewsService;
 import java.util.ArrayList;
 
 import uk.co.taniakolesnik.adn_bakingapp.R;
-import uk.co.taniakolesnik.adn_bakingapp.TinyDB;
 
 /**
  * Created by tetianakolesnik on 04/09/2018.
