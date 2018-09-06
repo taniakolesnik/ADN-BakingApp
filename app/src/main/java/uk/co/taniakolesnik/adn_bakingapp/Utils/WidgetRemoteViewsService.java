@@ -20,7 +20,7 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
         return new GridRemoteViewsFactory(this.getApplicationContext());
     }
 
-    class GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
+    class GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
         Context mContext;
         ArrayList<String> mIngredients;
@@ -29,7 +29,7 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
             mContext = context;
         }
 
-        private void updateWidgetList(){
+        private void updateWidgetList() {
             TinyDB tinyDB = new TinyDB(mContext);
             mIngredients = tinyDB.getListString(mContext.getString(R.string.widget_ingredients_list_for_widget_key));
         }

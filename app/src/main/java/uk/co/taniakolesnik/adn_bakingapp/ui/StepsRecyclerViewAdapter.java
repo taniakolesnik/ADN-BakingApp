@@ -21,7 +21,7 @@ import uk.co.taniakolesnik.adn_bakingapp.R;
  * Created by tetianakolesnik on 26/08/2018.
  */
 
-public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecyclerViewAdapter.ViewHolder>{
+public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<Step> data;
     private Context context;
@@ -29,24 +29,6 @@ public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecycler
     public StepsRecyclerViewAdapter(Context context, ArrayList<Step> data) {
         this.data = data;
         this.context = context;
-    }
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Serializable{
-
-        @BindView(R.id.step_short_description_textView)
-        TextView short_description;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            itemView.setOnClickListener(this);
-            ButterKnife.bind(this, itemView);
-        }
-
-        @Override
-        public void onClick(View v) {
-                DetailsFragment.mStepClickListener.onStepSelected(getAdapterPosition(), data);
-        }
     }
 
     @NonNull
@@ -64,5 +46,22 @@ public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecycler
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Serializable {
+
+        @BindView(R.id.step_short_description_textView)
+        TextView short_description;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+            ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            DetailsFragment.mStepClickListener.onStepSelected(getAdapterPosition(), data);
+        }
     }
 }

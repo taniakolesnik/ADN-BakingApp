@@ -18,12 +18,12 @@
             app:expandedTitleMarginStart="@dimen/margin_medium"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <ListView
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/ingredients_listView"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/ingredients_list_height"
-                    android:layout_alignParentTop="true" />
+            <ListView
+                android:id="@+id/ingredients_listView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ingredients_list_height"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

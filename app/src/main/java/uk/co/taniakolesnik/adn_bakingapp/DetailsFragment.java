@@ -55,7 +55,6 @@ public class DetailsFragment extends Fragment {
         } catch (ClassCastException e){
             throw new ClassCastException(context.toString() + "must implement OnStepClickListener");
         }
-
     }
 
     @Nullable

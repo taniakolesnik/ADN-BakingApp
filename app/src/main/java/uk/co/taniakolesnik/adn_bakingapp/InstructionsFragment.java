@@ -67,7 +67,7 @@ public class InstructionsFragment extends Fragment{
             }
             //if fragment was open with intent (phone mode)
         } else if (intent.hasExtra(getString(R.string.steps_bundle))) {
-             mSteps= (ArrayList<Step>) intent.getSerializableExtra(getString(R.string.steps_bundle));
+            mSteps = (ArrayList<Step>) intent.getSerializableExtra(getString(R.string.steps_bundle));
              stepPosition = intent.getIntExtra(getString(R.string.step_position_bundle), 0);
             //if fragment was open with details activity (tablet mode)
         } else if (bundle != null) {

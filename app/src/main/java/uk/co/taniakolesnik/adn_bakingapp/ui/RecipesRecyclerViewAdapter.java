@@ -32,28 +32,9 @@ public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecy
         this.data = data;
     }
 
-    public void updateData(List<Recipe> recipes){
+    public void updateData(List<Recipe> recipes) {
         this.data = recipes;
         notifyDataSetChanged();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Serializable{
-
-        @BindView(R.id.recipes_name) TextView nameView;
-
-        public ViewHolder(final View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Recipe recipe = data.get(getAdapterPosition());
-            Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra(context.getResources().getString(R.string.recipe_bundle), recipe);
-            context.startActivity(intent);
-        }
     }
 
     @Override
@@ -70,6 +51,26 @@ public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecy
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Serializable {
+
+        @BindView(R.id.recipes_name)
+        TextView nameView;
+
+        public ViewHolder(final View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Recipe recipe = data.get(getAdapterPosition());
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra(context.getResources().getString(R.string.recipe_bundle), recipe);
+            context.startActivity(intent);
+        }
     }
 
 

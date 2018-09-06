@@ -17,11 +17,11 @@ import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
 
 public class DetailsActivity extends AppCompatActivity implements DetailsFragment.OnStepClickListener {
 
+    @Nullable
+    @BindView(R.id.tablet_layout)
+    RelativeLayout mTabletLayout;
     private boolean mTabletMode;
     private String recipeName;
-
-    @Nullable
-    @BindView(R.id.tablet_layout) RelativeLayout mTabletLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +41,17 @@ public class DetailsActivity extends AppCompatActivity implements DetailsFragmen
 
     @Override
     public void onStepSelected(int position, ArrayList<Step> steps) {
-        if (mTabletMode){
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(getString(R.string.steps_bundle), steps);
-                bundle.putInt(getString(R.string.step_position_bundle), position);
-                InstructionsFragment fragment = new InstructionsFragment();
-                fragment.setArguments(bundle);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.instructions_container, fragment)
-                        .commit();
+        if (mTabletMode) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(getString(R.string.steps_bundle), steps);
+            bundle.putInt(getString(R.string.step_position_bundle), position);
+            InstructionsFragment fragment = new InstructionsFragment();
+            fragment.setArguments(bundle);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.instructions_container, fragment)
+                    .commit();
         } else {
             Intent intent = new Intent(this, InstructionsActivity.class);
             intent.putExtra(getString(R.string.steps_bundle), steps);

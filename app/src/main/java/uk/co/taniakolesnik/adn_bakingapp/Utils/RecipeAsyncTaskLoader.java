@@ -2,7 +2,6 @@ package uk.co.taniakolesnik.adn_bakingapp.Utils;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
 
 public class RecipeAsyncTaskLoader extends AsyncTaskLoader<List<Recipe>> {
 
-    private static final String TAG = RecipeAsyncTaskLoader.class.getSimpleName();
     private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net";
     private static final String URL_YEAR_PATH = "2017";
     private static final String URL_MONTH_PATH = "May";
@@ -43,21 +41,20 @@ public class RecipeAsyncTaskLoader extends AsyncTaskLoader<List<Recipe>> {
     @Override
     public List<Recipe> loadInBackground() {
 
-            recipes = new ArrayList<>();
+        recipes = new ArrayList<>();
 
-            Retrofit.Builder builder = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create());
-            final Retrofit retrofit = builder.build();
-            BakingGetListClient client = retrofit.create(BakingGetListClient.class);
-            Call<List<Recipe>> call = client.getRecipesList(URL_YEAR_PATH, URL_MONTH_PATH, URL_LIST_PATH);
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create());
+        final Retrofit retrofit = builder.build();
+        BakingGetListClient client = retrofit.create(BakingGetListClient.class);
+        Call<List<Recipe>> call = client.getRecipesList(URL_YEAR_PATH, URL_MONTH_PATH, URL_LIST_PATH);
         try {
             recipes = call.execute().body();
-            Log.i(TAG, "loadInBackground execute");
         } catch (IOException e) {
             e.printStackTrace();
         }
-            return recipes;
-        }
+        return recipes;
+    }
 
 }

@@ -33,8 +33,6 @@ public class MainRecipeListLoadedAndClickableCheck {
         // check if recipe name is clickable
         onView(withId(R.id.recipes_recyclerView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, TestViewAction.clickRecycletItemWithId(R.id.recipes_name)));
-        // check if recipe click open details activity
-
     }
 
 
