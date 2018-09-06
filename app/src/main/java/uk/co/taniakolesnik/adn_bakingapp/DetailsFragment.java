@@ -133,4 +133,5 @@ public class DetailsFragment extends Fragment {
         StepsRecyclerViewAdapter adapter = new StepsRecyclerViewAdapter(getContext(), steps);
         stepsRecyclerView.setAdapter(adapter);
     }
+
 }

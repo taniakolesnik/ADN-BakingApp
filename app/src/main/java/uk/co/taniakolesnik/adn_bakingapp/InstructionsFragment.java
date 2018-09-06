@@ -36,10 +36,9 @@ import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
 
 public class InstructionsFragment extends Fragment{
 
-    private static final String TAG = InstructionsFragment.class.getSimpleName();
-
     private static final String STEP_KEY = "step_key";
     private static final String STEPS_KEY = "steps_key";
+    private static final String STEP_POSITION_KEY = "step_position_key";
     private ArrayList<Step> mSteps;
     private Step mStep;
     private int stepPosition;
@@ -64,8 +63,8 @@ public class InstructionsFragment extends Fragment{
             if (savedInstanceState.containsKey(STEP_KEY)) {
                 mStep = (Step) savedInstanceState.getSerializable(STEP_KEY);
                 mSteps= (ArrayList<Step>) savedInstanceState.getSerializable(STEPS_KEY);
+                stepPosition = savedInstanceState.getInt(STEP_POSITION_KEY);
             }
-
             //if fragment was open with intent (phone mode)
         } else if (intent.hasExtra(getString(R.string.steps_bundle))) {
              mSteps= (ArrayList<Step>) intent.getSerializableExtra(getString(R.string.steps_bundle));
@@ -114,8 +113,7 @@ public class InstructionsFragment extends Fragment{
     private void setInstructionsView() {
         description.setText(mStep.getDescription());
         String videoUrl = mStep.getVideoURL();
-
-        if (videoUrl!=""){
+        if (videoUrl!=""||!videoUrl.isEmpty()){
             initializePlayer(videoUrl);
         } else {
             mPlayerView.setVisibility(View.GONE);
@@ -165,6 +163,7 @@ public class InstructionsFragment extends Fragment{
         super.onSaveInstanceState(outState);
         outState.putSerializable(STEP_KEY, mStep);
         outState.putSerializable(STEPS_KEY, mSteps);
+        outState.putInt(STEP_POSITION_KEY, stepPosition);
     }
 
     @Override

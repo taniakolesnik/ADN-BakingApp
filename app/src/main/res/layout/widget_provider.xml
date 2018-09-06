@@ -18,6 +18,7 @@
     <ImageView
         android:id="@+id/widget_imageView"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_width="@dimen/widget_icon_width"
         android:layout_height="@dimen/widget_icon_height"
         android:layout_margin="@dimen/widget_inside_margin" />

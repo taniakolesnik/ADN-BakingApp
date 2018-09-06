@@ -22,7 +22,7 @@
     <dimen name="margin_large">64dp</dimen>
 
     <dimen name="ingredients_list_height">320dp</dimen>
-    <dimen name="step_width_for_tablet">200dp</dimen>
+    <dimen name="step_width_for_tablet">400dp</dimen>
 
     <!--
 Refer to App Widget Documentation for margin information
