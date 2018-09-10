@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".InstructionActivity" />
+        <activity android:name=".InstructionStepActivity" />
 
         <receiver android:name=".utils.BakingWidgetProvider">
             <intent-filter>

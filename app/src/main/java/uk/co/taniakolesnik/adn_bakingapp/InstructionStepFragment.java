@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -34,21 +35,23 @@ import uk.co.taniakolesnik.adn_bakingapp.objects.Step;
  * Created by tetianakolesnik on 28/08/2018.
  */
 
-public class InstructionFragment extends Fragment{
+public class InstructionStepFragment extends Fragment{
 
     private static final String STEP_KEY = "step_key";
     private static final String STEPS_KEY = "steps_key";
     private static final String STEP_POSITION_KEY = "step_position_key";
+    private static final String PLAYER_POSITION_KEY = "player_position_key";
     private ArrayList<Step> mSteps;
     private Step mStep;
     private int stepPosition;
+    private long playerPosition;
     @BindView(R.id.step_description_textView) TextView description;
     @BindView(R.id.exo_player_view) SimpleExoPlayerView mPlayerView;
     @BindView(R.id.previous_step_button) Button button_previous;
     @BindView(R.id.next_step_button) Button button_next;
     private SimpleExoPlayer mPlayer;
 
-    public InstructionFragment() {
+    public InstructionStepFragment() {
     }
 
     @Override
@@ -58,11 +61,14 @@ public class InstructionFragment extends Fragment{
         Intent intent = getActivity().getIntent();
         Bundle bundle = this.getArguments();
 
+        playerPosition = C.TIME_UNSET;
+
         //restore instance
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(STEP_KEY)) {
                 mStep = (Step) savedInstanceState.getSerializable(STEP_KEY);
                 mSteps= (ArrayList<Step>) savedInstanceState.getSerializable(STEPS_KEY);
+                playerPosition = savedInstanceState.getLong(PLAYER_POSITION_KEY, C.TIME_UNSET);
                 stepPosition = savedInstanceState.getInt(STEP_POSITION_KEY);
             }
             //if fragment was open with intent (phone mode)
@@ -155,6 +161,11 @@ public class InstructionFragment extends Fragment{
 
         MediaSource mediaSource = new ExtractorMediaSource.Factory(factory).createMediaSource(videoUri);
         mPlayer.prepare(mediaSource);
+
+        if (playerPosition != C.TIME_UNSET) {
+            mPlayer.seekTo(playerPosition);
+        }
+
         mPlayer.setPlayWhenReady(true);
     }
 
@@ -164,11 +175,13 @@ public class InstructionFragment extends Fragment{
         outState.putSerializable(STEP_KEY, mStep);
         outState.putSerializable(STEPS_KEY, mSteps);
         outState.putInt(STEP_POSITION_KEY, stepPosition);
+        outState.putLong(PLAYER_POSITION_KEY, playerPosition);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        playerPosition = mPlayer.getCurrentPosition();
         releasePlayer();
     }
 

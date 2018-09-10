@@ -54,7 +54,7 @@ public class DetailsActivity extends AppCompatActivity implements InstructionsLi
             Bundle bundle = new Bundle();
             bundle.putSerializable(getString(R.string.steps_bundle), steps);
             bundle.putInt(getString(R.string.step_position_bundle), position);
-            InstructionFragment fragment = new InstructionFragment();
+            InstructionStepFragment fragment = new InstructionStepFragment();
             fragment.setArguments(bundle);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
@@ -62,7 +62,7 @@ public class DetailsActivity extends AppCompatActivity implements InstructionsLi
                     .replace(R.id.instructions_container, fragment)
                     .commit();
         } else {
-            Intent intent = new Intent(this, InstructionActivity.class);
+            Intent intent = new Intent(this, InstructionStepActivity.class);
             intent.putExtra(getString(R.string.steps_bundle), steps);
             intent.putExtra(getString(R.string.recipe_name_bundle), recipeName);
             intent.putExtra(getString(R.string.step_position_bundle), position);

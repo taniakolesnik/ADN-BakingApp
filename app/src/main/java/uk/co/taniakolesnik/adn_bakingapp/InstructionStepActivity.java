@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-public class InstructionActivity extends AppCompatActivity {
+public class InstructionStepActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,7 +13,7 @@ public class InstructionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_instructions);
 
         if (savedInstanceState == null) {
-            InstructionFragment fragment = new InstructionFragment();
+            InstructionStepFragment fragment = new InstructionStepFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()
