@@ -6,7 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +21,7 @@ import uk.co.taniakolesnik.adn_bakingapp.ui.DetailsFragmentPagerAdapter;
 public class DetailsActivity extends AppCompatActivity implements InstructionsListFragment.OnStepClickListener {
 
     @Nullable
-    @BindView(R.id.tablet_layout) RelativeLayout mTabletLayout;
+    @BindView(R.id.tablet_layout) LinearLayout mTabletLayout;
     @BindView(R.id.view_pager) ViewPager viewPager;
     @BindView(R.id.tabLayout) TabLayout tabLayout;
     private boolean mTabletMode;
@@ -33,11 +33,9 @@ public class DetailsActivity extends AppCompatActivity implements InstructionsLi
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
 
-//        if (mTabletLayout != null) {
-//            mTabletMode = true;
-//        } else {
-//
-//        }
+        if (mTabletLayout != null) {
+            mTabletMode = true;
+        }
 
         Intent intent = getIntent();
         Recipe recipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_bundle));
