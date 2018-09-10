@@ -34,7 +34,7 @@ import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
  * Created by tetianakolesnik on 28/08/2018.
  */
 
-public class InstructionsFragment extends Fragment{
+public class InstructionFragment extends Fragment{
 
     private static final String STEP_KEY = "step_key";
     private static final String STEPS_KEY = "steps_key";
@@ -48,12 +48,12 @@ public class InstructionsFragment extends Fragment{
     @BindView(R.id.next_step_button) Button button_next;
     private SimpleExoPlayer mPlayer;
 
-    public InstructionsFragment() {
+    public InstructionFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_instruction, container, false);
         ButterKnife.bind(this, rootView);
         Intent intent = getActivity().getIntent();
         Bundle bundle = this.getArguments();

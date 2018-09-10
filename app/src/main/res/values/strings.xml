@@ -20,4 +20,7 @@
 
     <string name="settings_menu_name">show on widget</string>
 
+    <string name="instructions_tab_name">Instructions</string>
+    <string name="ingredients_tab_name">Ingredients</string>
+
 </resources>

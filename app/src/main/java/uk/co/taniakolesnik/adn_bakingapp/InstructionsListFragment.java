@@ -12,35 +12,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Ingredient;
 import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
 import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
-import uk.co.taniakolesnik.adn_bakingapp.Utils.TinyDB;
 import uk.co.taniakolesnik.adn_bakingapp.ui.StepsRecyclerViewAdapter;
 
 /**
  * Created by tetianakolesnik on 28/08/2018.
  */
 
-public class DetailsFragment extends Fragment {
+public class InstructionsListFragment extends Fragment {
 
     private static final String RECIPE_KEY = "recipe_key";
     private Recipe mRecipe;
     private Parcelable mListState;
     private static final String LIST_STATE_KEY = "list_state";
-    @BindView(R.id.ingredients_listView) ListView ingredients_listView;
     @BindView(R.id.steps_recyclerView) RecyclerView stepsRecyclerView;
     public static OnStepClickListener mStepClickListener;
     private ArrayList<String> strings;
 
-    public DetailsFragment() {
+    public InstructionsListFragment() {
     }
 
     public interface OnStepClickListener{
@@ -60,7 +55,7 @@ public class DetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_details, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_instructions_list, container, false);
         ButterKnife.bind(this, rootView);
         setHasOptionsMenu(true);
 
@@ -73,22 +68,8 @@ public class DetailsFragment extends Fragment {
             mRecipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_bundle));
         }
 
-        // create ingredients list
-        strings = extractIngredientsList(mRecipe);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.ingredient_list_item, strings);
-        ingredients_listView.setAdapter(adapter);
-
-        addRecentRecipeIngredientsToWidget();
-        // create step list
         extractAndSetStepsList(mRecipe, savedInstanceState);
         return rootView;
-    }
-
-    private void addRecentRecipeIngredientsToWidget() {
-        TinyDB tinyDB = new TinyDB(getContext());
-        tinyDB.putString(getContext().getString(R.string.widget_recipe_name_for_widget_key), mRecipe.getName());
-        tinyDB.putListString(getContext().getString(R.string.widget_ingredients_list_for_widget_key), strings);
-
     }
 
     @Override
@@ -104,22 +85,6 @@ public class DetailsFragment extends Fragment {
         if (savedInstanceState!=null){
             mListState = savedInstanceState.getParcelable(LIST_STATE_KEY);
         }
-    }
-
-    private ArrayList<String> extractIngredientsList(Recipe recipe) {
-        ArrayList<Ingredient> ingredients = (ArrayList<Ingredient>) recipe.getIngredients();
-        ArrayList<String> strings = new ArrayList<>();
-        for (Ingredient ingredient : ingredients) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(" - ");
-            stringBuilder.append(ingredient.getIngredient());
-            stringBuilder.append(" - ");
-            stringBuilder.append(ingredient.getQuantity());
-            stringBuilder.append("(" + ingredient.getMeasure() + ");");
-            strings.add(stringBuilder.toString());
-        }
-
-        return strings;
     }
 
     private void extractAndSetStepsList(Recipe recipe, Bundle savedInstanceState) {

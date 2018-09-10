@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.taniakolesnik.adn_bakingapp.DetailsFragment;
+import uk.co.taniakolesnik.adn_bakingapp.InstructionsListFragment;
 import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
 import uk.co.taniakolesnik.adn_bakingapp.R;
 
@@ -61,7 +61,7 @@ public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecycler
 
         @Override
         public void onClick(View v) {
-            DetailsFragment.mStepClickListener.onStepSelected(getAdapterPosition(), data);
+            InstructionsListFragment.mStepClickListener.onStepSelected(getAdapterPosition(), data);
         }
     }
 }
