@@ -181,7 +181,9 @@ public class InstructionStepFragment extends Fragment{
     @Override
     public void onPause() {
         super.onPause();
-        playerPosition = mPlayer.getCurrentPosition();
+        if (mPlayer != null) {
+            playerPosition = mPlayer.getCurrentPosition();
+        }
         releasePlayer();
     }
 
