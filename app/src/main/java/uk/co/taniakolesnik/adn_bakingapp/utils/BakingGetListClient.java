@@ -1,11 +1,11 @@
-package uk.co.taniakolesnik.adn_bakingapp.Utils;
+package uk.co.taniakolesnik.adn_bakingapp.utils;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
+import uk.co.taniakolesnik.adn_bakingapp.objects.Recipe;
 
 /**
  * Created by tetianakolesnik on 23/08/2018.

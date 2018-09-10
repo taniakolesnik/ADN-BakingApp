@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
-import uk.co.taniakolesnik.adn_bakingapp.ui.DetailsFragmentPagerAdapter;
+import uk.co.taniakolesnik.adn_bakingapp.objects.Recipe;
+import uk.co.taniakolesnik.adn_bakingapp.objects.Step;
+import uk.co.taniakolesnik.adn_bakingapp.ui_utils.DetailsFragmentPagerAdapter;
 
 public class DetailsActivity extends AppCompatActivity implements InstructionsListFragment.OnStepClickListener {
 

@@ -20,9 +20,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
-import uk.co.taniakolesnik.adn_bakingapp.Utils.RecipeAsyncTaskLoader;
-import uk.co.taniakolesnik.adn_bakingapp.ui.RecipesRecyclerViewAdapter;
+import uk.co.taniakolesnik.adn_bakingapp.objects.Recipe;
+import uk.co.taniakolesnik.adn_bakingapp.utils.RecipeAsyncTaskLoader;
+import uk.co.taniakolesnik.adn_bakingapp.ui_utils.RecipesRecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Recipe>> {
 

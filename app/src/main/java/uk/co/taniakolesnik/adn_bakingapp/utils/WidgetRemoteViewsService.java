@@ -1,4 +1,4 @@
-package uk.co.taniakolesnik.adn_bakingapp.Utils;
+package uk.co.taniakolesnik.adn_bakingapp.utils;
 
 import android.content.Context;
 import android.content.Intent;

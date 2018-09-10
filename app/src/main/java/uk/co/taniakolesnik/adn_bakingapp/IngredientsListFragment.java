@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Ingredient;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
-import uk.co.taniakolesnik.adn_bakingapp.Utils.TinyDB;
+import uk.co.taniakolesnik.adn_bakingapp.objects.Ingredient;
+import uk.co.taniakolesnik.adn_bakingapp.objects.Recipe;
+import uk.co.taniakolesnik.adn_bakingapp.utils.TinyDB;
 
 /**
  * Created by tetianakolesnik on 09/09/2018.

@@ -1,4 +1,4 @@
-package uk.co.taniakolesnik.adn_bakingapp.ui;
+package uk.co.taniakolesnik.adn_bakingapp.ui_utils;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

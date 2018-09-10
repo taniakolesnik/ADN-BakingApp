@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Step;
+import uk.co.taniakolesnik.adn_bakingapp.objects.Step;
 
 /**
  * Created by tetianakolesnik on 28/08/2018.

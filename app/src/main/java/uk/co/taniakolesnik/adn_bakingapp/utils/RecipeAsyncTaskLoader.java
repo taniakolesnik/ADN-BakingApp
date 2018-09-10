@@ -1,4 +1,4 @@
-package uk.co.taniakolesnik.adn_bakingapp.Utils;
+package uk.co.taniakolesnik.adn_bakingapp.utils;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
@@ -10,7 +10,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import uk.co.taniakolesnik.adn_bakingapp.Objects.Recipe;
+import uk.co.taniakolesnik.adn_bakingapp.objects.Recipe;
 
 /**
  * Created by tetianakolesnik on 27/08/2018.
