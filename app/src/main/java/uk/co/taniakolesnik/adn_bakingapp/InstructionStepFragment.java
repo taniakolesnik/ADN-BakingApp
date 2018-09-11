@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,9 @@ import uk.co.taniakolesnik.adn_bakingapp.objects.Step;
 
 public class InstructionStepFragment extends Fragment{
 
+
+    private static final String TAG = InstructionStepFragment.class.getSimpleName();
+
     private static final String STEP_KEY = "step_key";
     private static final String STEPS_KEY = "steps_key";
     private static final String STEP_POSITION_KEY = "step_position_key";
@@ -45,6 +49,7 @@ public class InstructionStepFragment extends Fragment{
     private Step mStep;
     private int stepPosition;
     private long playerPosition;
+    private String videoUrl;
     @BindView(R.id.step_description_textView) TextView description;
     @BindView(R.id.exo_player_view) SimpleExoPlayerView mPlayerView;
     @BindView(R.id.previous_step_button) Button button_previous;
@@ -68,12 +73,14 @@ public class InstructionStepFragment extends Fragment{
             if (savedInstanceState.containsKey(STEP_KEY)) {
                 mStep = (Step) savedInstanceState.getSerializable(STEP_KEY);
                 mSteps= (ArrayList<Step>) savedInstanceState.getSerializable(STEPS_KEY);
-                playerPosition = savedInstanceState.getLong(PLAYER_POSITION_KEY, C.TIME_UNSET);
                 stepPosition = savedInstanceState.getInt(STEP_POSITION_KEY);
+                playerPosition = savedInstanceState.getLong(PLAYER_POSITION_KEY, C.TIME_UNSET);
+
+
             }
             //if fragment was open with intent (phone mode)
         } else if (intent.hasExtra(getString(R.string.steps_bundle))) {
-            mSteps = (ArrayList<Step>) intent.getSerializableExtra(getString(R.string.steps_bundle));
+             mSteps = (ArrayList<Step>) intent.getSerializableExtra(getString(R.string.steps_bundle));
              stepPosition = intent.getIntExtra(getString(R.string.step_position_bundle), 0);
             //if fragment was open with details activity (tablet mode)
         } else if (bundle != null) {
@@ -147,6 +154,8 @@ public class InstructionStepFragment extends Fragment{
     }
 
     private void initializePlayer(String videoUrl) {
+
+        Log.i(TAG, "initializePlayer videoUrl is " + videoUrl);
         Uri videoUri = Uri.parse(videoUrl);
 
         DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
@@ -161,11 +170,7 @@ public class InstructionStepFragment extends Fragment{
 
         MediaSource mediaSource = new ExtractorMediaSource.Factory(factory).createMediaSource(videoUri);
         mPlayer.prepare(mediaSource);
-
-        if (playerPosition != C.TIME_UNSET) {
-            mPlayer.seekTo(playerPosition);
-        }
-
+        mPlayer.seekTo(playerPosition);
         mPlayer.setPlayWhenReady(true);
     }
 
@@ -183,8 +188,17 @@ public class InstructionStepFragment extends Fragment{
         super.onPause();
         if (mPlayer != null) {
             playerPosition = mPlayer.getCurrentPosition();
+            mPlayer.setPlayWhenReady(false);
         }
-        releasePlayer();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPlayer != null) {
+
+        }
     }
 
     private void releasePlayer() {

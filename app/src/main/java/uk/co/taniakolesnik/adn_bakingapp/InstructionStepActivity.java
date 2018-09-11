@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 public class InstructionStepActivity extends AppCompatActivity {
+    private static final String TAG = InstructionStepActivity.class.getSimpleName();
+    InstructionStepFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +18,7 @@ public class InstructionStepActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            InstructionStepFragment fragment = new InstructionStepFragment();
+            fragment = new InstructionStepFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()
