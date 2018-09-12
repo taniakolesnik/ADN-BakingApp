@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +44,13 @@ public class InstructionStepFragment extends Fragment{
     private static final String STEPS_KEY = "steps_key";
     private static final String STEP_POSITION_KEY = "step_position_key";
     private static final String PLAYER_POSITION_KEY = "player_position_key";
+    private static final String PLAYER_STATE_KEY = "player_state_key";
     private ArrayList<Step> mSteps;
     private Step mStep;
     private int stepPosition;
     private long playerPosition;
     private String videoUrl;
+    private boolean playerState = true;
     @BindView(R.id.step_description_textView) TextView description;
     @BindView(R.id.exo_player_view) SimpleExoPlayerView mPlayerView;
     @BindView(R.id.previous_step_button) Button button_previous;
@@ -75,8 +76,7 @@ public class InstructionStepFragment extends Fragment{
                 mSteps= (ArrayList<Step>) savedInstanceState.getSerializable(STEPS_KEY);
                 stepPosition = savedInstanceState.getInt(STEP_POSITION_KEY);
                 playerPosition = savedInstanceState.getLong(PLAYER_POSITION_KEY, C.TIME_UNSET);
-
-
+                playerState = savedInstanceState.getBoolean(PLAYER_STATE_KEY);
             }
             //if fragment was open with intent (phone mode)
         } else if (intent.hasExtra(getString(R.string.steps_bundle))) {
@@ -125,9 +125,9 @@ public class InstructionStepFragment extends Fragment{
 
     private void setInstructionsView() {
         description.setText(mStep.getDescription());
-        String videoUrl = mStep.getVideoURL();
+        videoUrl = mStep.getVideoURL();
         if (videoUrl!=""||!videoUrl.isEmpty()){
-            initializePlayer(videoUrl);
+            initializePlayer();
         } else {
             mPlayerView.setVisibility(View.GONE);
         }
@@ -153,9 +153,8 @@ public class InstructionStepFragment extends Fragment{
         }
     }
 
-    private void initializePlayer(String videoUrl) {
+    private void initializePlayer() {
 
-        Log.i(TAG, "initializePlayer videoUrl is " + videoUrl);
         Uri videoUri = Uri.parse(videoUrl);
 
         DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
@@ -171,7 +170,7 @@ public class InstructionStepFragment extends Fragment{
         MediaSource mediaSource = new ExtractorMediaSource.Factory(factory).createMediaSource(videoUri);
         mPlayer.prepare(mediaSource);
         mPlayer.seekTo(playerPosition);
-        mPlayer.setPlayWhenReady(true);
+        mPlayer.setPlayWhenReady(playerState);
     }
 
     @Override
@@ -181,6 +180,7 @@ public class InstructionStepFragment extends Fragment{
         outState.putSerializable(STEPS_KEY, mSteps);
         outState.putInt(STEP_POSITION_KEY, stepPosition);
         outState.putLong(PLAYER_POSITION_KEY, playerPosition);
+        outState.putBoolean(PLAYER_STATE_KEY, playerState);
     }
 
     @Override
@@ -188,17 +188,14 @@ public class InstructionStepFragment extends Fragment{
         super.onPause();
         if (mPlayer != null) {
             playerPosition = mPlayer.getCurrentPosition();
-            mPlayer.setPlayWhenReady(false);
+            playerState = mPlayer.getPlayWhenReady();
         }
     }
 
-
     @Override
-    public void onResume() {
-        super.onResume();
-        if (mPlayer != null) {
-
-        }
+    public void onStop() {
+        super.onStop();
+            releasePlayer();
     }
 
     private void releasePlayer() {
