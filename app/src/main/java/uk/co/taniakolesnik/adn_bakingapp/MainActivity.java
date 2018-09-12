@@ -21,8 +21,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.taniakolesnik.adn_bakingapp.objects.Recipe;
-import uk.co.taniakolesnik.adn_bakingapp.utils.RecipeAsyncTaskLoader;
 import uk.co.taniakolesnik.adn_bakingapp.ui_utils.RecipesRecyclerViewAdapter;
+import uk.co.taniakolesnik.adn_bakingapp.utils.RecipeAsyncTaskLoader;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Recipe>> {
 
@@ -48,9 +48,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         RecyclerView.LayoutManager layoutManager;
 
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
+                .getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
             getLoaderManager().initLoader(LOADER_ID, null, this);
             layoutManager = new GridLayoutManager(this, getColumnNumber());
             mAdapter = new RecipesRecyclerViewAdapter(this, new ArrayList<Recipe>());
@@ -61,7 +62,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             recyclerView.setAdapter(mAdapter);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
         } else {
+            emptyTextView.setVisibility(View.VISIBLE);
             emptyTextView.setText(getString(R.string.no_internet_message));
+            progressBar.setVisibility(View.GONE);
         }
     }
 

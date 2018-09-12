@@ -6,7 +6,9 @@ import android.content.Context;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -43,8 +45,15 @@ public class RecipeAsyncTaskLoader extends AsyncTaskLoader<List<Recipe>> {
 
         recipes = new ArrayList<>();
 
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(5, TimeUnit.SECONDS)
+                .build();
+
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create());
         final Retrofit retrofit = builder.build();
         BakingGetListClient client = retrofit.create(BakingGetListClient.class);
